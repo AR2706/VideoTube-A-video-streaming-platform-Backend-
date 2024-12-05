@@ -1,4 +1,4 @@
-import mongoose,{Schema} from "mongosse"
+import mongoose,{Schema} from "mongoose"
 import jwt from "jsonwebtoken"//secure the data # works as a key who ever sends this key server will give the data to it.
 import bcrypt form"bcrypt"//hashing passwords
 
