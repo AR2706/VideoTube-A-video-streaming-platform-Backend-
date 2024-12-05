@@ -16,8 +16,8 @@ app.use(express.urlencoded({
     extended:true,
     limit:"16kb"
 }))//used to config the data coming from url
-app.use(express.static({"public"}))//used to store thr files /folders(public assets accessed by anyone)
-app.use(express.cookieParser())//used for CRUD operation on cookies
+app.use(express.static("public"))//used to store thr files /folders(public assets accessed by anyone)
+app.use(cookieParser())//used for CRUD operation on cookies
 
 
 
