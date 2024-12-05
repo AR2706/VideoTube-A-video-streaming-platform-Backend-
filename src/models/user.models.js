@@ -50,7 +50,7 @@ const userSchema =  new Schema({
 
 },{timestamps:true})
 
-userSchema.pre("save",async function(next){// here arrow will not access all the elements of the json file
+userSchema.pre("save",async function(next){// middleware:- here arrow will not access all the elements of the json file
     if(!this.isModified("password")) return next();      
     
     this.password = bcrypt.hash(this.password, 10)
