@@ -19,6 +19,15 @@ app.use(express.urlencoded({
 app.use(express.static("public"))//used to store thr files /folders(public assets accessed by anyone)
 app.use(cookieParser())//used for CRUD operation on cookies
 
+//routes import 
+
+import userRouter from './routes/user.routes.js'
+
+
+//routes declaration
+app.use("/api/v1/users",userRouter)
+//https://localhost:800/api/v1/users/regiter
+
 
 
 
