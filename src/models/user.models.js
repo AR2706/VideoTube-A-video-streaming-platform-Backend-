@@ -1,6 +1,6 @@
 import mongoose,{Schema} from "mongoose"
 import jwt from "jsonwebtoken"//secure the data # works as a key who ever sends this key server will give the data to it.
-import bcrypt form"bcrypt"//hashing passwords
+import bcrypt from"bcrypt"//hashing passwords
 
 const userSchema =  new Schema({ 
     username:{
@@ -53,7 +53,7 @@ const userSchema =  new Schema({
 userSchema.pre("save",async function(next){// middleware:- here arrow will not access all the elements of the json file
     if(!this.isModified("password")) return next();      
     
-    this.password = bcrypt.hash(this.password, 10)
+    this.password =  await bcrypt.hash(this.password, 10)
     next()
 })
 
@@ -68,7 +68,7 @@ userSchema.methods.generateAccessToken = async function(){
             email:this.email,
             username:this.username,
             fullName:this.fullName
-        }
+        },
         process.env.ACCESS_TOKEN_SECRET,
         {
             expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
