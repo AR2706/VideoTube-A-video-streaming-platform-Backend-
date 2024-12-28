@@ -2,7 +2,7 @@ import {asyncHandler} from "../utils/asyncHandler.js"
 import {ApiError} from "../utils/APIError.js"
 import {User} from "../models/user.models.js"
 import {uploadOnCLoudinary} from "../utils/Cloudinary.js"
-import {ApiResponse} from ".//utils/ApiResponse.js"
+import {ApiResponse} from "../utils/ApiResponse.js"
 
 const registerUser = asyncHandler(async (req,res)=>{
     // get user details from frontend 
@@ -15,12 +15,13 @@ const registerUser = asyncHandler(async (req,res)=>{
     //check for user creation
     //return response
 
-    const {fullName,email,usename,password}= req.body//accessing from the frontend
+    const {fullName,email,username,password}= req.body//accessing from the frontend
     console.log("email:",email);
-    console.log("fullname:",fullName); // accessing the response 
+    console.log("fullname:",fullName);
+    console.log("password",password); // accessing the response 
 
     if (
-        [fullName,email,usernname,password].some((field)=>
+        [fullName,email,username,password].some((field)=>
             field?.trim()===""
         )
     ){
@@ -32,8 +33,8 @@ const registerUser = asyncHandler(async (req,res)=>{
    
     const existedUser = User.findOne({
         $or: [{ username },{ email }]    
-    })
-    if (existedUser===""){
+    })//or operator 
+    if (existedUser){
         throw new ApiError(409,"Username or email already exists") // if the user already exist
     }
     const avatarLocalPath = req.files?.avatar[0]?.path; //check fo image
@@ -45,12 +46,12 @@ const registerUser = asyncHandler(async (req,res)=>{
     const avatar = await uploadOnCLoudinary(avatarLocalPath) //upload on cloudinary 
     const coverImage = await uploadOnCLoudinary(coverImageLocalPath)
 
-    if (avatar){
+    if (!avatar){
         throw new ApiError(400,"Avatar File is required")
     }
     const user = await User.create({
         fullName,
-        avatar:avatar.url
+        avatar:avatar.url,
         coverImage:coverImage.url || "",
         email,
         password,
@@ -58,7 +59,7 @@ const registerUser = asyncHandler(async (req,res)=>{
          
     })// creating user
 
-    const craetedUser = await User.findById(user._id).select(
+    const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     )
 
