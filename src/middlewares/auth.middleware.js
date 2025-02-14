@@ -1,7 +1,8 @@
-import {ApiError} from "../utils/APIError.js";
-import {ApiResponse} from "../APIResponse.js";
+/*import {ApiError} from "../utils/APIError.js";
+import {ApiResponse} from "../utils/APIResponse.js";
 import jwt from "jsonwebtoken";
-import {User} from "../models/user.models.js"
+import {User} from "../models/user.models.js";
+import {asyncHandler} from" ../utils/asyncHandler.js";
 
 export const verifyJWT = asyncHandler(async(req,res,next)=>{
     try {
@@ -13,8 +14,7 @@ export const verifyJWT = asyncHandler(async(req,res,next)=>{
     
         const decodedToken = await jwt.verify(token,process.env.ACCESS_TOKEN_SECRET) 
     
-        const user = await User.findById(decodedToken?._id).select("
-            -password -refreshToken")
+        const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
          if(!user) {
             throw new ApiError(401,"Invalid Access Token")
             
@@ -27,4 +27,4 @@ export const verifyJWT = asyncHandler(async(req,res,next)=>{
         
     }
 
-})
+})*/

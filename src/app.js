@@ -19,7 +19,7 @@ app.use(express.urlencoded({
 app.use(express.static("public"))//used to store the files /folders(public assets accessed by anyone)
 app.use(cookieParser())//used for CRUD operation on cookies
 
-//routes import 
+//routes import
 
 import userRouter from './routes/user.routes.js'// we can directly import it in any name
 

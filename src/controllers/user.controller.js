@@ -5,7 +5,7 @@ import {uploadOnCloudinary} from "../utils/Cloudinary.js"
 import {ApiResponse} from "../utils/APIResponse.js"
 
 
-const generateAccessAndRefreshTokens = async(userId){
+const generateAccessAndRefreshTokens = async(userId)=>{
     try {
         const user = await User.findById(userId)
         const accessToken = user.generateAccessToken()
@@ -97,7 +97,7 @@ const registerUser = asyncHandler( async (req, res) => {
 
 } )
 
-const loginUser = asyncHandler{async (req,res)=>{
+/*const loginUser =  asyncHandler (async(req,res)=>{
     // req-data -> data
     //username or email
     //find the user
@@ -152,19 +152,23 @@ const loginUser = asyncHandler{async (req,res)=>{
 
 }
 
-}
+)
 
 const logoutUser = asyncHandler(async(req,res)=>{
     await User.findByIdAndUpdate(
         req.user._id,
         {
             $set:{
+            
                 refreshToken: undefined
+            
             }
+        },
             {
                 new:true
             }
-        }
+            
+        
     )
 
     const options = {
@@ -178,10 +182,10 @@ const logoutUser = asyncHandler(async(req,res)=>{
     .clearCookie("refeshToken",option)
     .json(new ApiResponse(200,{},"User logout"))
     
-})
+})*/
 
 export  {
     registerUser,
-    loginUser,
-    logoutUser
+    //loginUser,
+    //logoutUser
 }
